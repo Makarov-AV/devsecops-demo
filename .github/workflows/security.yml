@@ -20,7 +20,7 @@ jobs:
           trivy --version  # Проверяем, что Trivy установлен
 
       - name: Проверка зависимостей
-        run: trivy fs ./devsecops-demo
+        run: trivy fs --exit-code 0 ./home/kali/devsecops-demo/
 
       - name: Проверка контейнера
         run: |
