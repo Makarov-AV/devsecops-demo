@@ -1,0 +1,24 @@
+name: Security Checks
+
+on: [push, pull_request]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout код
+        uses: actions/checkout@v4
+
+      - name: Установка Trivy
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget curl
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
+
+      - name: Проверка зависимостей
+        run: trivy fs .
+
+      - name: Проверка контейнера
+        run: |
+          docker build -t myapp .
+          trivy image myapp
