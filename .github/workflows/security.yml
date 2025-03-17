@@ -12,10 +12,8 @@ jobs:
 
       - name: Установка Trivy
         run: |
-          sudo apt install -y wget
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_Linux-64bit.tar.gz
-          tar zxvf trivy_Linux-64bit.tar.gz
-          sudo mv trivy /usr/local/bin/
+          sudo apt-get update && sudo apt-get install -y wget curl
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
 
       - name: Проверка зависимостей
         run: trivy fs .
